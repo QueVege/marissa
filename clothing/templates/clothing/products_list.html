@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Clothing</title>
+</head>
+<body>
+    <div>
+        <ul>
+            {% for product in products %}
+                <li>
+                    <a href="{% url 'clothing:product_detail' product.id %}">
+                        <img src="{{ product.image }}" alt="{{ product.category }} image">
+                    </a>
+                    <p>{{ product.name }}</p>
+                </li>
+            {% empty %}
+                <p>Catalog is empty.</p>
+            {% endfor %}
+        </ul>
+    </div>
+    <script>
+        var socket = new WebSocket(
+            'ws://' + window.location.host + '/ws/products/'
+        );
+
+        socket.onopen = function open() {
+            console.log('WebSockets connection created');
+        };
+
+        socket.onmessage = function message(event) {
+            var data = JSON.parse(event.data);
+            var message = data['message'];
+            window.location.reload(true);
+            console.log(message);
+        };
+
+        if (socket.readyState == WebSocket.OPEN) {
+            socket.onopen();
+        }
+    </script>
+</body>
+</html>

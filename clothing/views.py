@@ -1,12 +1,15 @@
 import os
 
 from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView
 
 # from scrapy.crawler import CrawlerRunner
 # from scrapy.utils.project import get_project_settings
 from scrapy_redis import get_redis
 
 # from scraper.spiders.marissa import MarissaSpider
+
+from .models import Product
 
 
 def index(request):
@@ -25,8 +28,21 @@ def url_to_redis(request):
         'marissa:start_urls',
         'https://www.marissacollections.com/shop/clothing.html?limit=9'
     )
-    return redirect('clothing:catalog')
+    return redirect('clothing:products_list')
 
 
-def clothing_list(request):
-    return render(request, 'clothing/cloth_list.html', {})
+class ProductsList(ListView):
+
+    """Implementing a view to display products list"""
+
+    model = Product
+    template_name = 'clothing/products_list.html'
+    context_object_name = 'products'
+
+
+class ProductDetail(DetailView):
+
+    """Implementing a view to display product detail page"""
+
+    model = Product
+    template_name = 'clothing/product_detail.html'
