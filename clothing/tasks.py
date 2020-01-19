@@ -2,7 +2,7 @@ from marissa.celery_app import app
 import json
 # from .models import Product
 import clothing
-
+from .signals import products_added
 
 @app.task(name='add_to_db')
 def add_to_db(items):
@@ -16,4 +16,5 @@ def add_to_db(items):
             price = item['price'],
             description = '\n'.join(item['description'])
         )
+    products_added.send(sender=clothing.models.Product)
     return True
