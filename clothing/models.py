@@ -6,9 +6,9 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     image = models.URLField()
     brand = models.CharField(max_length=50)
-    category = models.CharField(max_length=50)
-    price = models.FloatField()
+    # category = models.CharField(max_length=50)
+    price = models.CharField(max_length=10)
     description = models.CharField(max_length=500)
 
     def __str__(self):
-            return self.name
+        return self.name

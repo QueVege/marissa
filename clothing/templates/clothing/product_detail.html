@@ -1,12 +1,22 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>Clothing</title>
+    <link rel="stylesheet" href="{% static 'clothing/style.css' %}">
 </head>
 <body>
-    <div>
-        <h1>{{ product.name }}</h1>
+    <div class="product-detail">
+        <img src="{{ product.image }}" alt="{{ product.category }} image">
+        <div class="info">
+            <h1>{{ product.name }}</h1>
+            <p class="brand">{{ product.brand }}</p>
+            <p class="price">{{ product.price }}</p>
+            <p>{{ product.description }}</p>
+            <p>More info: {{ product.url }}</p>
+        </div>
     </div>
 </body>
 </html>

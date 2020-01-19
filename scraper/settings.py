@@ -1,3 +1,14 @@
+import os
+import sys
+
+# DJANGO INTEGRATION
+
+# sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "marissa"))
+# os.environ['DJANGO_SETTINGS_MODULE'] = 'marissa.settings'
+
+# import django
+# django.setup()
+
 # -*- coding: utf-8 -*-
 
 # Scrapy settings for scraper project
@@ -13,7 +24,6 @@ BOT_NAME = 'scraper'
 
 SPIDER_MODULES = ['scraper.spiders']
 NEWSPIDER_MODULE = 'scraper.spiders'
-
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'scraper (+http://www.yourdomain.com)'
