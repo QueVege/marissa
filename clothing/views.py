@@ -15,7 +15,7 @@ def index(request):
 
 def load(request):
 
-    """Delete all Product objects from db, set start url to redis queue"""
+    """Set start url to redis queue"""
 
     Product.objects.all().delete()
 
