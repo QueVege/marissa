@@ -13,8 +13,9 @@ def add_to_db(items):
             name = item['name'],
             image = item['image'],
             brand = item['brand'],
-            price = item['price'],
-            description = '\n'.join(item['description'])
+            price = item['price'].strip(),
+            description = '\n'.join(item['description']),
+            category = item['url'].split("/")[-2]
         )
     products_added.send(sender=clothing.models.Product)
     return True
