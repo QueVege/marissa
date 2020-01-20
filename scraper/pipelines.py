@@ -14,7 +14,7 @@ class ScraperPipeline(object):
 
     def process_item(self, item, spider):
         self.items.append(item._values)
-        if len(self.items) >= 4:
+        if len(self.items) >= 20:
             add_to_db.delay(self.items)
             self.items.clear()
         return item
@@ -22,8 +22,3 @@ class ScraperPipeline(object):
     def close_spider(self, spider):
         if self.items:
             add_to_db.delay(self.items)
-
-# прписать свой сигнал для запуска в таске (один после цикла)
-# сделать загрузку всех объектов spider (добавить цвета и размеры)
-# посмотреть самостоятельное закрытие спайдера
-
