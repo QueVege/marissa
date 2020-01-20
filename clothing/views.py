@@ -35,6 +35,14 @@ class ProductsList(ListView):
     model = Product
     template_name = 'clothing/products_list.html'
     context_object_name = 'products'
+    paginate_by = 50
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['products_count'] = Product.objects.count()
+
+        return context
 
 
 class ProductDetail(DetailView):

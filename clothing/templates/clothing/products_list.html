@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'clothing/style.css' %}">
 </head>
 <body>
+    <p>Products count: {{ products_count }}</p>
     <div class="product">
         <ul>
             {% for product in products %}
@@ -19,13 +20,35 @@
                         <p>{{ product.name }}</p>
                         <p>{{ product.price }}</p>
                         <p>{{ product.brand }}</p>
+                        <p>{{ product.category }}</p>
                     </div>
                 </li>
             {% empty %}
                 <p>Catalog is empty.</p>
             {% endfor %}
         </ul>
-    </div="products">
+    </div>
+    {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
     <script>
         var socket = new WebSocket(
             'ws://' + window.location.host + '/ws/products/'
