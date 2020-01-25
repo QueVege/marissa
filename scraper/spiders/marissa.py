@@ -3,8 +3,8 @@ from scraper.items import Product
 from scrapy_redis.spiders import RedisSpider
 import logging
 
-logging.basicConfig(filename="logfile.log", level=logging.DEBUG)
 
+logging.basicConfig(filename="logfile.log", level=logging.DEBUG)
 
 
 class MarissaSpider(RedisSpider):
@@ -56,6 +56,10 @@ class MarissaSpider(RedisSpider):
             "//dd[contains(@itemprop, 'description')]/p/text()"
         ).extract()
 
+        options = response.xpath(
+            "//div[@id='optJSON']/text()"
+        ).extract_first()
+
         product = Product()
         product['url'] = response.request.url
         product['name'] = name
@@ -63,4 +67,5 @@ class MarissaSpider(RedisSpider):
         product['brand'] = brand
         product['price'] = price
         product['description'] = description
+        product['options'] = options
         return product
